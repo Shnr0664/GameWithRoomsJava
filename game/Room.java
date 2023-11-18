@@ -5,6 +5,7 @@ import actors.Enemy;
 import actors.Player;
 import inventory.Inventory;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Room {
@@ -14,11 +15,13 @@ public class Room {
     Player pl;
     ArrayList<Enemy> enemies;
     Inventory roomInventory;
+    HashMap<String,Position> neighbours;
     protected Room(int i, int j){
         enemies =new ArrayList<Enemy>();
         roomInventory =new Inventory();
         rowIndice=i;
         columnIndice=j;
+        neighbours = new HashMap<>();
     }
     protected void setInventory(){
         roomInventory.setInventory();
@@ -40,10 +43,20 @@ public class Room {
 //        playerIsInRoom=false;
 //    }
 
+
+    public int getRowIndice() {
+        return rowIndice;
+    }
+
+    public int getColumnIndice() {
+        return columnIndice;
+    }
+
     public String toString(){
         StringBuilder sb=new StringBuilder("room: ");
         sb.append(rowIndice).append(" ");
         sb.append(columnIndice).append(" ").append("\n");
+        sb.append(neighbours).append("\n");
         sb.append("    ").append(roomInventory.toString());
         sb.append("    Actors:").append("\n");
         if(enemies.isEmpty()&& !playerIsInRoom){
