@@ -32,9 +32,18 @@ public class GameMap {
             for(Room rm:list){
                 numOfEnemiesToAllocate=rm.setEnemies(numOfEnemiesToAllocate);
                 rm.setInventory();
+                setNeighbours(rm);
             }
         }
     }
+    private void setNeighbours(Room rm){
+        if(rm.getColumnIndice()-1>=0) rm.neighbours.put("W", new Position(rm.getRowIndice(), rm.getColumnIndice()-1));
+        if(rm.getColumnIndice()+1<this.rooms.get(0).size()) rm.neighbours.put("E", new Position(rm.getRowIndice(), rm.getColumnIndice()+1));
+        if(rm.getRowIndice()-1>=0) rm.neighbours.put("N", new Position(rm.getRowIndice()-1, rm.getColumnIndice()));
+        if(rm.getRowIndice()+1<this.rooms.size()) rm.neighbours.put("S", new Position(rm.getRowIndice()+1, rm.getColumnIndice()));
+
+    }
+
     public void printMap(){
         for(ArrayList<Room> list: rooms){
             for(Room rm:list){
